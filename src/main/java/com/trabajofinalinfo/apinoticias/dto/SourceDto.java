@@ -1,32 +1,33 @@
-package com.trabajofinalinfo.apinoticias.model;
+package com.trabajofinalinfo.apinoticias.dto;
 
-import javax.persistence.*;
+import com.trabajofinalinfo.apinoticias.model.Article;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
-public class Source {
+public class SourceDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
     private String name;
+    @NotBlank
     private String code;
+    @NotEmpty
     private LocalDate createdAt;
+    private List<ArticleDto> articles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "source")
-    private List<Article> articles = new ArrayList<>();
-
-    public Source(String name, String code, LocalDate createdAt, List<Article> articles) {
+    public SourceDto(String name, String code, LocalDate createdAt, List<ArticleDto> articles) {
         this.name = name;
         this.code = code;
         this.createdAt = createdAt;
         this.articles = articles;
     }
 
-    public Source() {
+    public SourceDto() {
     }
 
     public Long getId() {
@@ -61,11 +62,11 @@ public class Source {
         this.createdAt = createdAt;
     }
 
-    public List<Article> getArticles() {
+    public List<ArticleDto> getArticles() {
         return articles;
     }
 
-    public void setArticles(List<Article> articles) {
+    public void setArticles(List<ArticleDto> articles) {
         this.articles = articles;
     }
 
@@ -73,8 +74,8 @@ public class Source {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Source source = (Source) o;
-        return Objects.equals(id, source.id) && Objects.equals(name, source.name) && Objects.equals(code, source.code) && Objects.equals(createdAt, source.createdAt);
+        SourceDto sourceDto = (SourceDto) o;
+        return Objects.equals(id, sourceDto.id) && Objects.equals(name, sourceDto.name) && Objects.equals(code, sourceDto.code) && Objects.equals(createdAt, sourceDto.createdAt);
     }
 
     @Override
@@ -84,7 +85,7 @@ public class Source {
 
     @Override
     public String toString() {
-        return "Source{" +
+        return "SourceDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", code='" + code + '\'' +
