@@ -3,19 +3,29 @@ package com.trabajofinalinfo.apinoticias.dto;
 import com.trabajofinalinfo.apinoticias.model.Author;
 import com.trabajofinalinfo.apinoticias.model.Source;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class ArticleDto {
     private Long id;
+    @NotBlank
     private String title;
+    @NotBlank
     private String description;
+    @NotBlank
     private String url;
+    @NotBlank
     private String urlToImage;
+    @NotNull
     private Boolean published;
     private LocalDate publishedAt;
+    @NotBlank
     private String content;
+
     private Author author;
+
     private Source source;
 
     public ArticleDto(String title, String description, String url, String urlToImage, Boolean published, LocalDate publishedAt, String content, Author author, Source source) {
