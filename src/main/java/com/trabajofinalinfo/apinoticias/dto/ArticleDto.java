@@ -24,11 +24,12 @@ public class ArticleDto {
     @NotBlank
     private String content;
 
-    private Author author;
+    private AuthorDto author;
 
-    private Source source;
+    private SourceDto source;
 
-    public ArticleDto(String title, String description, String url, String urlToImage, Boolean published, LocalDate publishedAt, String content, Author author, Source source) {
+    public ArticleDto(Long id, String title, String description, String url, String urlToImage, Boolean published, LocalDate publishedAt, String content, AuthorDto author, SourceDto source) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.url = url;
@@ -107,19 +108,19 @@ public class ArticleDto {
         this.content = content;
     }
 
-    public Author getAuthor() {
+    public AuthorDto getAuthor() {
         return author;
     }
 
-    public void setAuthor(Author author) {
+    public void setAuthor(AuthorDto author) {
         this.author = author;
     }
 
-    public Source getSource() {
+    public SourceDto getSource() {
         return source;
     }
 
-    public void setSource(Source source) {
+    public void setSource(SourceDto source) {
         this.source = source;
     }
 

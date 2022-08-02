@@ -7,18 +7,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class SourceDtoToEntityConverter {
 
-    private final ArticleDtoToEntityConverter articleDtoToEntityConverter;
-
-    public SourceDtoToEntityConverter(ArticleDtoToEntityConverter articleDtoToEntityConverter) {
-        this.articleDtoToEntityConverter = articleDtoToEntityConverter;
-    }
-
     public Source toEntity(SourceDto sourceDto) {
         return new Source(
                 sourceDto.getName(),
                 sourceDto.getCode(),
-                sourceDto.getCreatedAt(),
-                articleDtoToEntityConverter.toEntity(sourceDto.getArticles())
+                sourceDto.getCreatedAt()
         );
     }
 }

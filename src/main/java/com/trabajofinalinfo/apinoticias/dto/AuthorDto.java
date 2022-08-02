@@ -17,14 +17,13 @@ public class AuthorDto {
     private String lastname;
     private String fullname;
     private LocalDate createdAt;
-    private List<ArticleDto> articles = new ArrayList<>();
 
-    public AuthorDto(String firstname, String lastname, String fullname, LocalDate createdAt, List<ArticleDto> articles) {
+    public AuthorDto(Long id, String firstname, String lastname, String fullname, LocalDate createdAt) {
+        this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.fullname = fullname;
         this.createdAt = createdAt;
-        this.articles = articles;
     }
 
     public AuthorDto() {
@@ -68,14 +67,6 @@ public class AuthorDto {
 
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public List<ArticleDto> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(List<ArticleDto> articles) {
-        this.articles = articles;
     }
 
     @Override

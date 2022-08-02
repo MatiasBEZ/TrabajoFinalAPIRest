@@ -9,6 +9,15 @@ import java.util.stream.Collectors;
 
 @Component
 public class ArticleConverter {
+
+    private final AuthorConverter authorConverter;
+    private final SourceConverter sourceconverter;
+
+    public ArticleConverter(AuthorConverter authorConverter, SourceConverter sourceconverter) {
+        this.authorConverter = authorConverter;
+        this.sourceconverter = sourceconverter;
+    }
+
     public List<ArticleDto> toDto(List<Article> articles) {
         return articles.stream().map( article -> toDto(article))
                 .collect(Collectors.toList());
@@ -16,6 +25,7 @@ public class ArticleConverter {
 
     public ArticleDto toDto(Article article) {
         return new ArticleDto(
+                article.getId(),
                 article.getTitle(),
                 article.getDescription(),
                 article.getUrl(),
@@ -23,8 +33,8 @@ public class ArticleConverter {
                 article.getPublished(),
                 article.getPublishedAt(),
                 article.getContent(),
-                article.getAuthor(),
-                article.getSource()
+                authorConverter.toDto(article.getAuthor()),
+                sourceconverter.toDto(article.getSource())
         );
     }
 }

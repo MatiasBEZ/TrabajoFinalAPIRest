@@ -14,13 +14,12 @@ public class SourceDto {
     @NotBlank
     private String code;
     private LocalDate createdAt;
-    private List<ArticleDto> articles = new ArrayList<>();
 
-    public SourceDto(String name, String code, LocalDate createdAt, List<ArticleDto> articles) {
+    public SourceDto(Long id, String name, String code, LocalDate createdAt) {
+        this.id = id;
         this.name = name;
         this.code = code;
         this.createdAt = createdAt;
-        this.articles = articles;
     }
 
     public SourceDto() {
@@ -56,14 +55,6 @@ public class SourceDto {
 
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public List<ArticleDto> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(List<ArticleDto> articles) {
-        this.articles = articles;
     }
 
     @Override

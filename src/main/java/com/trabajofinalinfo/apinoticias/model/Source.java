@@ -1,5 +1,8 @@
 package com.trabajofinalinfo.apinoticias.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,11 +22,10 @@ public class Source {
     @OneToMany(mappedBy = "source")
     private List<Article> articles = new ArrayList<>();
 
-    public Source(String name, String code, LocalDate createdAt, List<Article> articles) {
+    public Source(String name, String code, LocalDate createdAt) {
         this.name = name;
         this.code = code;
         this.createdAt = createdAt;
-        this.articles = articles;
     }
 
     public Source() {
@@ -60,6 +62,7 @@ public class Source {
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
+
 
     public List<Article> getArticles() {
         return articles;
