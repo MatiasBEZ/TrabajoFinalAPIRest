@@ -1,26 +1,25 @@
-package com.trabajofinalinfo.apinoticias.model;
+package com.trabajofinalinfo.apinoticias.dto;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
-@Entity
-public class Author {
+import static java.util.stream.Collectors.joining;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AuthorDto {
     private Long id;
+    @NotBlank
     private String firstname;
+    @NotBlank
     private String lastname;
     private String fullname;
     private LocalDate createdAt;
+    private List<ArticleDto> articles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "author")
-    private List<Article> articles = new ArrayList<>();
-
-    public Author(String firstname, String lastname, String fullname, LocalDate createdAt, List<Article> articles) {
+    public AuthorDto(String firstname, String lastname, String fullname, LocalDate createdAt, List<ArticleDto> articles) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.fullname = fullname;
@@ -28,7 +27,7 @@ public class Author {
         this.articles = articles;
     }
 
-    public Author() {
+    public AuthorDto() {
     }
 
     public Long getId() {
@@ -71,11 +70,11 @@ public class Author {
         this.createdAt = createdAt;
     }
 
-    public List<Article> getArticles() {
+    public List<ArticleDto> getArticles() {
         return articles;
     }
 
-    public void setArticles(List<Article> articles) {
+    public void setArticles(List<ArticleDto> articles) {
         this.articles = articles;
     }
 
@@ -83,8 +82,8 @@ public class Author {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Author author = (Author) o;
-        return Objects.equals(id, author.id) && Objects.equals(firstname, author.firstname) && Objects.equals(lastname, author.lastname) && Objects.equals(fullname, author.fullname) && Objects.equals(createdAt, author.createdAt);
+        AuthorDto authorDto = (AuthorDto) o;
+        return Objects.equals(id, authorDto.id) && Objects.equals(firstname, authorDto.firstname) && Objects.equals(lastname, authorDto.lastname) && Objects.equals(fullname, authorDto.fullname) && Objects.equals(createdAt, authorDto.createdAt);
     }
 
     @Override
@@ -94,7 +93,7 @@ public class Author {
 
     @Override
     public String toString() {
-        return "Author{" +
+        return "AuthorDto{" +
                 "id=" + id +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +

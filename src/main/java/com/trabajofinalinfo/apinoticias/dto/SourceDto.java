@@ -1,9 +1,6 @@
 package com.trabajofinalinfo.apinoticias.dto;
 
-import com.trabajofinalinfo.apinoticias.model.Article;
-
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +13,6 @@ public class SourceDto {
     private String name;
     @NotBlank
     private String code;
-    @NotEmpty
     private LocalDate createdAt;
     private List<ArticleDto> articles = new ArrayList<>();
 
