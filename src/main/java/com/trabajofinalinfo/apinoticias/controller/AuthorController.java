@@ -34,7 +34,7 @@ public class AuthorController {
 
     @PutMapping
     @RequestMapping("/{authorId}")
-    public ResponseEntity<?> findAllAuthors(@PathVariable Long authorId, @RequestBody AuthorDto authorDto) {
+    public ResponseEntity<?> findAllAuthors(@PathVariable Long authorId, @RequestBody @Valid AuthorDto authorDto) {
         return new ResponseEntity<>(authorService.updateAuthor(authorId,authorDto), HttpStatus.OK);
     }
 }

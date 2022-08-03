@@ -25,6 +25,9 @@ public class SourceService {
     }
 
     public Boolean createSource(SourceDto sourceDto) {
+        if (sourceDto.getCreatedAt() == null) {
+            throw new RuntimeException("You can't give a null creation date!");
+        }
         Source source = sourceDtoToEntityConverter.toEntity(sourceDto);
         sourceRepository.save(source);
         return true;
@@ -42,16 +45,15 @@ public class SourceService {
     }
 
     public SourceDto updateSource(Long sourceId, SourceDto sourceDto) {
-        /**return sourceRepository.findById(sourceId).map(source ->
-         {source.setName(sourceDto.getName());
-          source.setCode(sourceDto.getCode());
-          source.setCreatedAt(sourceDto.getCreatedAt());
-          return sourceRepository.save(source);
-         });**/
-        sourceRepository.findById(sourceId).orElseThrow(RuntimeException::new);
-        Source source = sourceDtoToEntityConverter.toEntity(sourceDto);
-        source.setId(sourceId);
-        sourceRepository.save(source);
-        return sourceDto;
+        sourceRepository.findById(sourceId).map(source -> {
+            source.setName(sourceDto.getName());
+            source.setCode(sourceDto.getCode());
+            return sourceRepository.save(source);
+        }).orElseThrow(() -> new RuntimeException("Id not found"));
+
+        Optional<Source> sourceEntity = sourceRepository.findById(sourceId);
+        SourceDto sourceResponse = sourceConverter.toDto(sourceEntity.get());
+
+        return sourceResponse;
     }
 }

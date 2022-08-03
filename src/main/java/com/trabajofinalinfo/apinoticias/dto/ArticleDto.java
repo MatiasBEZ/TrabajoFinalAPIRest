@@ -1,8 +1,5 @@
 package com.trabajofinalinfo.apinoticias.dto;
 
-import com.trabajofinalinfo.apinoticias.model.Author;
-import com.trabajofinalinfo.apinoticias.model.Source;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -20,6 +17,7 @@ public class ArticleDto {
     private String urlToImage;
     @NotNull
     private Boolean published;
+    @NotNull
     private LocalDate publishedAt;
     @NotBlank
     private String content;
