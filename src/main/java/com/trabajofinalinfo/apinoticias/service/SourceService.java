@@ -56,4 +56,8 @@ public class SourceService {
 
         return sourceResponse;
     }
+
+    public void deleteSource(Long sourceId) {
+        sourceRepository.deleteById(sourceId);
+    }
 }

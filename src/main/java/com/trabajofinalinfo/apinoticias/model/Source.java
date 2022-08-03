@@ -19,7 +19,7 @@ public class Source {
     private String code;
     private LocalDate createdAt;
 
-    @OneToMany(mappedBy = "source")
+    @OneToMany(mappedBy = "source", cascade = CascadeType.ALL)
     private List<Article> articles = new ArrayList<>();
 
     public Source(Long id, String name, String code, LocalDate createdAt) {

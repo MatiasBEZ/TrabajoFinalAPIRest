@@ -1,6 +1,5 @@
 package com.trabajofinalinfo.apinoticias.controller;
 
-import com.trabajofinalinfo.apinoticias.dto.ArticleDto;
 import com.trabajofinalinfo.apinoticias.dto.AuthorDto;
 import com.trabajofinalinfo.apinoticias.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,13 @@ public class AuthorController {
 
     @PutMapping
     @RequestMapping("/{authorId}")
-    public ResponseEntity<?> findAllAuthors(@PathVariable Long authorId, @RequestBody @Valid AuthorDto authorDto) {
+    public ResponseEntity<?> updateAuthor(@PathVariable Long authorId, @RequestBody @Valid AuthorDto authorDto) {
         return new ResponseEntity<>(authorService.updateAuthor(authorId,authorDto), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{authorId}")
+    public ResponseEntity<?> deleteAuthor(@PathVariable Long authorId) {
+        authorService.deleteAuthor(authorId);
+        return new ResponseEntity<>( HttpStatus.OK);
     }
 }

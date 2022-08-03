@@ -33,7 +33,13 @@ public class SourceController {
 
     @PutMapping
     @RequestMapping("/{sourceId}")
-    public ResponseEntity<?> findAllSources(@PathVariable Long sourceId, @RequestBody SourceDto sourceDto) {
+    public ResponseEntity<?> updateSource(@PathVariable Long sourceId, @RequestBody @Valid SourceDto sourceDto) {
         return new ResponseEntity<>(sourceService.updateSource(sourceId,sourceDto), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{sourceId}")
+    public ResponseEntity<?> deleteSource(@PathVariable Long sourceId) {
+        sourceService.deleteSource(sourceId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

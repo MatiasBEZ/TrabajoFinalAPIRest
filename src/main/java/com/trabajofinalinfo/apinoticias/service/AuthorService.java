@@ -56,4 +56,8 @@ public class AuthorService {
 
         return authorResponse;
     }
+
+    public void deleteAuthor(Long authorId) {
+        authorRepository.deleteById(authorId);
+    }
 }

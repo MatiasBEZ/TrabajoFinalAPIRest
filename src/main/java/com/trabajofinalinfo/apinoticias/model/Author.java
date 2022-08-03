@@ -20,7 +20,7 @@ public class Author {
     private String fullname;
     private LocalDate createdAt;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Article> articles = new ArrayList<>();
 
     public Author(Long id, String firstname, String lastname, String fullname, LocalDate createdAt) {

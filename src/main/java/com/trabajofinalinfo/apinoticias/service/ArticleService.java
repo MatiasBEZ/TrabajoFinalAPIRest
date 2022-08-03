@@ -53,4 +53,8 @@ public class ArticleService {
         articleRepository.save(article);
         return articleDto;
     }
+
+    public void deleteArticle(Long articleId) {
+        articleRepository.deleteById(articleId);
+    }
 }
