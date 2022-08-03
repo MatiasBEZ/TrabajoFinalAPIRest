@@ -1,6 +1,7 @@
 package com.trabajofinalinfo.apinoticias.controller;
 
 import com.trabajofinalinfo.apinoticias.dto.ArticleDto;
+import com.trabajofinalinfo.apinoticias.dto.SourceDto;
 import com.trabajofinalinfo.apinoticias.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,5 +30,11 @@ public class ArticleController {
     @RequestMapping("/all")
     public ResponseEntity<?> findAllSources() {
         return new ResponseEntity<>(articleService.findAll(), HttpStatus.FOUND);
+    }
+
+    @PutMapping
+    @RequestMapping("/{articleId}")
+    public ResponseEntity<?> findAllArticles(@PathVariable Long articleId, @RequestBody ArticleDto articleDto) {
+        return new ResponseEntity<>(articleService.updateArticle(articleId,articleDto), HttpStatus.OK);
     }
 }

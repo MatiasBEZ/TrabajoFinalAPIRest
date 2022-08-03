@@ -23,7 +23,8 @@ public class Author {
     @OneToMany(mappedBy = "author")
     private List<Article> articles = new ArrayList<>();
 
-    public Author(String firstname, String lastname, String fullname, LocalDate createdAt) {
+    public Author(Long id, String firstname, String lastname, String fullname, LocalDate createdAt) {
+        this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.fullname = fullname;

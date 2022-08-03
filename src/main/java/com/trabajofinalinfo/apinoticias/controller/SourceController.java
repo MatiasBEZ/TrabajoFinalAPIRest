@@ -30,4 +30,10 @@ public class SourceController {
     public ResponseEntity<?> findAllSources() {
         return new ResponseEntity<>(sourceService.findAll(), HttpStatus.FOUND);
     }
+
+    @PutMapping
+    @RequestMapping("/{sourceId}")
+    public ResponseEntity<?> findAllSources(@PathVariable Long sourceId, @RequestBody SourceDto sourceDto) {
+        return new ResponseEntity<>(sourceService.updateSource(sourceId,sourceDto), HttpStatus.OK);
+    }
 }

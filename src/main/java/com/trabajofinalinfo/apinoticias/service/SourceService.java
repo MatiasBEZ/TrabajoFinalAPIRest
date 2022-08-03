@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -38,5 +39,19 @@ public class SourceService {
         }
         return sourcesDto;
         //return (List<Source>) sourceRepository.findAll();
+    }
+
+    public SourceDto updateSource(Long sourceId, SourceDto sourceDto) {
+        /**return sourceRepository.findById(sourceId).map(source ->
+         {source.setName(sourceDto.getName());
+          source.setCode(sourceDto.getCode());
+          source.setCreatedAt(sourceDto.getCreatedAt());
+          return sourceRepository.save(source);
+         });**/
+        sourceRepository.findById(sourceId).orElseThrow(RuntimeException::new);
+        Source source = sourceDtoToEntityConverter.toEntity(sourceDto);
+        source.setId(sourceId);
+        sourceRepository.save(source);
+        return sourceDto;
     }
 }

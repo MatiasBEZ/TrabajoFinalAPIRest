@@ -2,7 +2,9 @@ package com.trabajofinalinfo.apinoticias.service;
 
 import com.trabajofinalinfo.apinoticias.converter.AuthorConverter;
 import com.trabajofinalinfo.apinoticias.converter.AuthorDtoToEntityConverter;
+import com.trabajofinalinfo.apinoticias.dto.ArticleDto;
 import com.trabajofinalinfo.apinoticias.dto.AuthorDto;
+import com.trabajofinalinfo.apinoticias.model.Article;
 import com.trabajofinalinfo.apinoticias.model.Author;
 import com.trabajofinalinfo.apinoticias.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
@@ -37,5 +39,19 @@ public class AuthorService {
             authorsDto.add(authorConverter.toDto(author));
         }
         return authorsDto;
+    }
+
+    public AuthorDto updateAuthor(Long authorId, AuthorDto authorDto) {
+        /**return sourceRepository.findById(sourceId).map(source ->
+         {source.setName(sourceDto.getName());
+         source.setCode(sourceDto.getCode());
+         source.setCreatedAt(sourceDto.getCreatedAt());
+         return sourceRepository.save(source);
+         });**/
+        authorRepository.findById(authorId).orElseThrow(RuntimeException::new);
+        Author author = authorDtoToEntityConverter.toEntity(authorDto);
+        author.setId(authorId);
+        authorRepository.save(author);
+        return authorDto;
     }
 }

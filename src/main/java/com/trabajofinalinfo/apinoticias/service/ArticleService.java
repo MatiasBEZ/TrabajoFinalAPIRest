@@ -3,7 +3,9 @@ package com.trabajofinalinfo.apinoticias.service;
 import com.trabajofinalinfo.apinoticias.converter.ArticleConverter;
 import com.trabajofinalinfo.apinoticias.converter.ArticleDtoToEntityConverter;
 import com.trabajofinalinfo.apinoticias.dto.ArticleDto;
+import com.trabajofinalinfo.apinoticias.dto.SourceDto;
 import com.trabajofinalinfo.apinoticias.model.Article;
+import com.trabajofinalinfo.apinoticias.model.Source;
 import com.trabajofinalinfo.apinoticias.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +40,19 @@ public class ArticleService {
         }
         return articlesDto;
         //return (List<Article>) articleRepository.findAll();
+    }
+
+    public ArticleDto updateArticle(Long articleId, ArticleDto articleDto) {
+        /**return sourceRepository.findById(sourceId).map(source ->
+         {source.setName(sourceDto.getName());
+         source.setCode(sourceDto.getCode());
+         source.setCreatedAt(sourceDto.getCreatedAt());
+         return sourceRepository.save(source);
+         });**/
+        articleRepository.findById(articleId).orElseThrow(RuntimeException::new);
+        Article article = articleDtoToEntityConverter.toEntity(articleDto);
+        article.setId(articleId);
+        articleRepository.save(article);
+        return articleDto;
     }
 }

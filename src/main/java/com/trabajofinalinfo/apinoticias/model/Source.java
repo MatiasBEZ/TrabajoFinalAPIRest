@@ -22,7 +22,8 @@ public class Source {
     @OneToMany(mappedBy = "source")
     private List<Article> articles = new ArrayList<>();
 
-    public Source(String name, String code, LocalDate createdAt) {
+    public Source(Long id, String name, String code, LocalDate createdAt) {
+        this.id = id;
         this.name = name;
         this.code = code;
         this.createdAt = createdAt;

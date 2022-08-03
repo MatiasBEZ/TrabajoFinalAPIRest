@@ -1,5 +1,6 @@
 package com.trabajofinalinfo.apinoticias.controller;
 
+import com.trabajofinalinfo.apinoticias.dto.ArticleDto;
 import com.trabajofinalinfo.apinoticias.dto.AuthorDto;
 import com.trabajofinalinfo.apinoticias.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,11 @@ public class AuthorController {
     @RequestMapping("/all")
     public ResponseEntity<?> findAllAuthors() {
         return new ResponseEntity<>(authorService.findAll(), HttpStatus.FOUND);
+    }
+
+    @PutMapping
+    @RequestMapping("/{authorId}")
+    public ResponseEntity<?> findAllAuthors(@PathVariable Long authorId, @RequestBody AuthorDto authorDto) {
+        return new ResponseEntity<>(authorService.updateAuthor(authorId,authorDto), HttpStatus.OK);
     }
 }
