@@ -5,11 +5,11 @@ import com.trabajofinalinfo.apinoticias.converter.AuthorDtoToEntityConverter;
 import com.trabajofinalinfo.apinoticias.dto.AuthorDto;
 import com.trabajofinalinfo.apinoticias.model.Author;
 import com.trabajofinalinfo.apinoticias.repository.AuthorRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,13 +34,9 @@ public class AuthorService {
         return true;
     }
 
-    public List<AuthorDto> findAll() {
-        List<Author> authors = new ArrayList<>();
-        List<AuthorDto> authorsDto = new ArrayList<>();
-        authorRepository.findAll().forEach(authors::add);
-        for (Author author : authors) {
-            authorsDto.add(authorConverter.toDto(author));
-        }
+    public Page<AuthorDto> findAll(Pageable pageable) {
+        Page<AuthorDto> authorsDto = authorRepository.findAll(pageable)
+                .map(authorConverter::toDto);
         return authorsDto;
     }
 
@@ -62,23 +58,15 @@ public class AuthorService {
         authorRepository.deleteById(authorId);
     }
 
-    public List<AuthorDto> findByFullname(String fullname) {
-        List<Author> authors = new ArrayList<>();
-        List<AuthorDto> authorsDto = new ArrayList<>();
-        authorRepository.findByFullnameContaining(fullname).forEach(authors::add);
-        for (Author author : authors) {
-            authorsDto.add(authorConverter.toDto(author));
-        }
+    public Page<AuthorDto> findByFullname(String fullname, Pageable pageable) {
+        Page<AuthorDto> authorsDto = authorRepository.findByFullnameContaining(fullname, pageable)
+                .map(authorConverter::toDto);
         return authorsDto;
     }
 
-    public List<AuthorDto> findByCreatedAfterDate(LocalDate date) {
-        List<Author> authors = new ArrayList<>();
-        List<AuthorDto> authorsDto = new ArrayList<>();
-        authorRepository.findByCreatedAtAfter(date).forEach(authors::add);
-        for (Author author : authors) {
-            authorsDto.add(authorConverter.toDto(author));
-        }
+    public Page<AuthorDto> findByCreatedAfterDate(LocalDate date, Pageable pageable) {
+        Page<AuthorDto> authorsDto = authorRepository.findByCreatedAtAfter(date, pageable)
+                .map(authorConverter::toDto);
         return authorsDto;
     }
 }

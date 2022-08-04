@@ -3,6 +3,7 @@ package com.trabajofinalinfo.apinoticias.controller;
 import com.trabajofinalinfo.apinoticias.dto.AuthorDto;
 import com.trabajofinalinfo.apinoticias.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 
 @RestController
-@RequestMapping("/author")
+@RequestMapping("/api/v1/author")
 public class AuthorController {
 
     private final AuthorService authorService;
@@ -29,8 +30,8 @@ public class AuthorController {
 
     @GetMapping
     @RequestMapping("/all")
-    public ResponseEntity<?> findAllAuthors() {
-        return new ResponseEntity<>(authorService.findAll(), HttpStatus.OK);
+    public ResponseEntity<?> findAllAuthors(Pageable pageable) {
+        return new ResponseEntity<>(authorService.findAll(pageable), HttpStatus.OK);
     }
 
     @PutMapping
@@ -46,14 +47,14 @@ public class AuthorController {
     }
 
     @GetMapping(value= "/search/fullname")
-    public ResponseEntity<?> findByFullname(@RequestParam String fullname) {
-        return new ResponseEntity<>(authorService.findByFullname(fullname), HttpStatus.OK);
+    public ResponseEntity<?> findByFullname(@RequestParam String fullname, Pageable pageable) {
+        return new ResponseEntity<>(authorService.findByFullname(fullname, pageable), HttpStatus.OK);
     }
 
     @GetMapping(value= "/search/date")
     public ResponseEntity<?> findByCreatedAfterDate(@RequestParam
                                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-                                                        LocalDate date) {
-        return new ResponseEntity<>(authorService.findByCreatedAfterDate(date), HttpStatus.OK);
+                                                        LocalDate date, Pageable pageable) {
+        return new ResponseEntity<>(authorService.findByCreatedAfterDate(date, pageable), HttpStatus.OK);
     }
 }

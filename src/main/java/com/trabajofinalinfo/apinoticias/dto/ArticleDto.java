@@ -21,9 +21,7 @@ public class ArticleDto {
     private LocalDate publishedAt;
     @NotBlank
     private String content;
-
     private AuthorDto author;
-
     private SourceDto source;
 
     public ArticleDto(Long id, String title, String description, String url, String urlToImage, Boolean published, LocalDate publishedAt, String content, AuthorDto author, SourceDto source) {

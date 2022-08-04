@@ -3,6 +3,7 @@ package com.trabajofinalinfo.apinoticias.controller;
 import com.trabajofinalinfo.apinoticias.dto.ArticleDto;
 import com.trabajofinalinfo.apinoticias.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -14,7 +15,7 @@ import javax.validation.constraints.Size;
 
 @Validated
 @RestController
-@RequestMapping("/article")
+@RequestMapping("/api/v1/article")
 public class ArticleController {
 
     private final ArticleService articleService;
@@ -31,8 +32,8 @@ public class ArticleController {
 
     @GetMapping
     @RequestMapping("/all")
-    public ResponseEntity<?> findAllSources() {
-        return new ResponseEntity<>(articleService.findAll(), HttpStatus.OK);
+    public ResponseEntity<?> findAllArticles(Pageable pageable) {
+        return new ResponseEntity<>(articleService.findAll(pageable), HttpStatus.OK);
     }
 
     @PutMapping
@@ -48,7 +49,13 @@ public class ArticleController {
     }
 
     @GetMapping(value= "/search")
-    public ResponseEntity<?> findByFilter(@Valid @Size(min=3) @RequestParam String filter) {
-        return new ResponseEntity<>(articleService.findByFilter(filter), HttpStatus.OK);
+    public ResponseEntity<?> findByFilter(@Valid @Size(min=3) @RequestParam(required = false)
+                                              String filter, Pageable pageable) {
+        if (filter != null) {
+            return new ResponseEntity<>(articleService.findByFilter(filter, pageable), HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(articleService.findAll(pageable), HttpStatus.OK);
+        }
     }
 }

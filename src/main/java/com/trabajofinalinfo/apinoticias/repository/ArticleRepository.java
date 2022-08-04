@@ -1,6 +1,8 @@
 package com.trabajofinalinfo.apinoticias.repository;
 
 import com.trabajofinalinfo.apinoticias.model.Article;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,6 +17,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
                     "WHERE article.title LIKE %:filter% " +
                     "OR article.description LIKE %:filter% OR article.content " +
                     "LIKE %:filter% OR author.fullname LIKE %:filter% AND article.published = 1",
+            countQuery = "SELECT count(*) FROM article",
             nativeQuery = true)
-    List<Article> findByFilter(@Param("filter") String filter);
+    Page<Article> findByFilter(@Param("filter") String filter, Pageable pageable);
 }

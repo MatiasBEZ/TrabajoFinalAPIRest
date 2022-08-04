@@ -5,10 +5,10 @@ import com.trabajofinalinfo.apinoticias.converter.SourceDtoToEntityConverter;
 import com.trabajofinalinfo.apinoticias.dto.SourceDto;
 import com.trabajofinalinfo.apinoticias.model.Source;
 import com.trabajofinalinfo.apinoticias.repository.SourceRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -33,15 +33,10 @@ public class SourceService {
         return true;
     }
 
-    public List<SourceDto> findAll() {
-        List<Source> sources = new ArrayList<>();
-        List<SourceDto> sourcesDto = new ArrayList<>();
-        sourceRepository.findAll().forEach(sources::add);
-        for (Source source : sources) {
-            sourcesDto.add(sourceConverter.toDto(source));
-        }
+    public Page<SourceDto> findAll(Pageable pageable) {
+        Page<SourceDto> sourcesDto = sourceRepository.findAll(pageable)
+                .map(sourceConverter::toDto);
         return sourcesDto;
-        //return (List<Source>) sourceRepository.findAll();
     }
 
     public SourceDto updateSource(Long sourceId, SourceDto sourceDto) {
@@ -61,13 +56,9 @@ public class SourceService {
         sourceRepository.deleteById(sourceId);
     }
 
-    public List<SourceDto> findByName(String name) {
-        List<Source> sources = new ArrayList<>();
-        List<SourceDto> sourcesDto = new ArrayList<>();
-        sourceRepository.findByNameContaining(name).forEach(sources::add);
-        for (Source source : sources) {
-            sourcesDto.add(sourceConverter.toDto(source));
-        }
+    public Page<SourceDto> findByName(String name, Pageable pageable) {
+        Page<SourceDto> sourcesDto = sourceRepository.findByNameContaining(name, pageable)
+                .map(sourceConverter::toDto);
         return sourcesDto;
     }
 }

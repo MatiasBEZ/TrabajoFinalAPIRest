@@ -3,15 +3,11 @@ package com.trabajofinalinfo.apinoticias.service;
 import com.trabajofinalinfo.apinoticias.converter.ArticleConverter;
 import com.trabajofinalinfo.apinoticias.converter.ArticleDtoToEntityConverter;
 import com.trabajofinalinfo.apinoticias.dto.ArticleDto;
-import com.trabajofinalinfo.apinoticias.dto.AuthorDto;
 import com.trabajofinalinfo.apinoticias.model.Article;
-import com.trabajofinalinfo.apinoticias.model.Author;
 import com.trabajofinalinfo.apinoticias.repository.ArticleRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class ArticleService {
@@ -26,21 +22,16 @@ public class ArticleService {
         this.articleRepository = articleRepository;
     }
 
-    public Article createArticle(ArticleDto articleDto) {
+    public ArticleDto createArticle(ArticleDto articleDto) {
         Article article = articleDtoToEntityConverter.toEntity(articleDto);
         articleRepository.save(article);
-        return article;
+        return articleDto;
     }
 
-    public List<ArticleDto> findAll() {
-        List<Article> articles = new ArrayList<>();
-        List<ArticleDto> articlesDto = new ArrayList<>();
-        articleRepository.findAll().forEach(articles::add);
-        for (Article article : articles) {
-            articlesDto.add(articleConverter.toDto(article));
-        }
+    public Page<ArticleDto> findAll(Pageable pageable) {
+        Page<ArticleDto> articlesDto = articleRepository.findAll(pageable)
+                .map(articleConverter::toDto);
         return articlesDto;
-        //return (List<Article>) articleRepository.findAll();
     }
 
     public ArticleDto updateArticle(Long articleId, ArticleDto articleDto) {
@@ -61,13 +52,9 @@ public class ArticleService {
         articleRepository.deleteById(articleId);
     }
 
-    public List<ArticleDto> findByFilter(String filter) {
-        List<Article> articles = new ArrayList<>();
-        List<ArticleDto> articlesDto = new ArrayList<>();
-        articleRepository.findByFilter(filter).forEach(articles::add);
-        for (Article article : articles) {
-            articlesDto.add(articleConverter.toDto(article));
-        }
+    public Page<ArticleDto> findByFilter(String filter, Pageable pageable) {
+        Page<ArticleDto> articlesDto = articleRepository.findByFilter(filter,pageable)
+                .map(articleConverter::toDto);
         return articlesDto;
     }
 }

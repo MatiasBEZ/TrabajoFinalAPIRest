@@ -3,6 +3,7 @@ package com.trabajofinalinfo.apinoticias.controller;
 import com.trabajofinalinfo.apinoticias.dto.SourceDto;
 import com.trabajofinalinfo.apinoticias.service.SourceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/source")
+@RequestMapping("/api/v1/source")
 public class SourceController {
 
     private final SourceService sourceService;
@@ -27,8 +28,8 @@ public class SourceController {
 
     @GetMapping
     @RequestMapping("/all")
-    public ResponseEntity<?> findAllSources() {
-        return new ResponseEntity<>(sourceService.findAll(), HttpStatus.OK);
+    public ResponseEntity<?> findAllSources(Pageable pageable) {
+        return new ResponseEntity<>(sourceService.findAll(pageable), HttpStatus.OK);
     }
 
     @PutMapping
@@ -43,8 +44,8 @@ public class SourceController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<?> findByName(@RequestParam String name) {
-        return new ResponseEntity<>(sourceService.findByName(name), HttpStatus.OK);
+    @GetMapping(value = "/search/name")
+    public ResponseEntity<?> findByName(@RequestParam String name, Pageable pageable) {
+        return new ResponseEntity<>(sourceService.findByName(name, pageable), HttpStatus.OK);
     }
 }
