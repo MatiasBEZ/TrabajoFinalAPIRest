@@ -3,11 +3,13 @@ package com.trabajofinalinfo.apinoticias.controller;
 import com.trabajofinalinfo.apinoticias.dto.AuthorDto;
 import com.trabajofinalinfo.apinoticias.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/author")
@@ -28,7 +30,7 @@ public class AuthorController {
     @GetMapping
     @RequestMapping("/all")
     public ResponseEntity<?> findAllAuthors() {
-        return new ResponseEntity<>(authorService.findAll(), HttpStatus.FOUND);
+        return new ResponseEntity<>(authorService.findAll(), HttpStatus.OK);
     }
 
     @PutMapping
@@ -41,5 +43,17 @@ public class AuthorController {
     public ResponseEntity<?> deleteAuthor(@PathVariable Long authorId) {
         authorService.deleteAuthor(authorId);
         return new ResponseEntity<>( HttpStatus.OK);
+    }
+
+    @GetMapping(value= "/search/fullname")
+    public ResponseEntity<?> findByFullname(@RequestParam String fullname) {
+        return new ResponseEntity<>(authorService.findByFullname(fullname), HttpStatus.OK);
+    }
+
+    @GetMapping(value= "/search/date")
+    public ResponseEntity<?> findByCreatedAfterDate(@RequestParam
+                                                        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                        LocalDate date) {
+        return new ResponseEntity<>(authorService.findByCreatedAfterDate(date), HttpStatus.OK);
     }
 }

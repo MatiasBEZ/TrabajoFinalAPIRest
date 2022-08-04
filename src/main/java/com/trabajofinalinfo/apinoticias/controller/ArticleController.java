@@ -5,10 +5,14 @@ import com.trabajofinalinfo.apinoticias.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Size;
 
+
+@Validated
 @RestController
 @RequestMapping("/article")
 public class ArticleController {
@@ -28,7 +32,7 @@ public class ArticleController {
     @GetMapping
     @RequestMapping("/all")
     public ResponseEntity<?> findAllSources() {
-        return new ResponseEntity<>(articleService.findAll(), HttpStatus.FOUND);
+        return new ResponseEntity<>(articleService.findAll(), HttpStatus.OK);
     }
 
     @PutMapping
@@ -41,5 +45,10 @@ public class ArticleController {
     public ResponseEntity<?> deleteArticle(@PathVariable Long articleId) {
         articleService.deleteArticle(articleId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value= "/search")
+    public ResponseEntity<?> findByFilter(@Valid @Size(min=3) @RequestParam String filter) {
+        return new ResponseEntity<>(articleService.findByFilter(filter), HttpStatus.OK);
     }
 }

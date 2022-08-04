@@ -28,7 +28,7 @@ public class SourceController {
     @GetMapping
     @RequestMapping("/all")
     public ResponseEntity<?> findAllSources() {
-        return new ResponseEntity<>(sourceService.findAll(), HttpStatus.FOUND);
+        return new ResponseEntity<>(sourceService.findAll(), HttpStatus.OK);
     }
 
     @PutMapping
@@ -41,5 +41,10 @@ public class SourceController {
     public ResponseEntity<?> deleteSource(@PathVariable Long sourceId) {
         sourceService.deleteSource(sourceId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> findByName(@RequestParam String name) {
+        return new ResponseEntity<>(sourceService.findByName(name), HttpStatus.OK);
     }
 }

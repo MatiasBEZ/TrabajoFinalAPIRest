@@ -60,4 +60,14 @@ public class SourceService {
     public void deleteSource(Long sourceId) {
         sourceRepository.deleteById(sourceId);
     }
+
+    public List<SourceDto> findByName(String name) {
+        List<Source> sources = new ArrayList<>();
+        List<SourceDto> sourcesDto = new ArrayList<>();
+        sourceRepository.findByNameContaining(name).forEach(sources::add);
+        for (Source source : sources) {
+            sourcesDto.add(sourceConverter.toDto(source));
+        }
+        return sourcesDto;
+    }
 }

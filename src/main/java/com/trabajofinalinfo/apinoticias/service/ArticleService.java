@@ -3,10 +3,13 @@ package com.trabajofinalinfo.apinoticias.service;
 import com.trabajofinalinfo.apinoticias.converter.ArticleConverter;
 import com.trabajofinalinfo.apinoticias.converter.ArticleDtoToEntityConverter;
 import com.trabajofinalinfo.apinoticias.dto.ArticleDto;
+import com.trabajofinalinfo.apinoticias.dto.AuthorDto;
 import com.trabajofinalinfo.apinoticias.model.Article;
+import com.trabajofinalinfo.apinoticias.model.Author;
 import com.trabajofinalinfo.apinoticias.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,5 +59,15 @@ public class ArticleService {
 
     public void deleteArticle(Long articleId) {
         articleRepository.deleteById(articleId);
+    }
+
+    public List<ArticleDto> findByFilter(String filter) {
+        List<Article> articles = new ArrayList<>();
+        List<ArticleDto> articlesDto = new ArrayList<>();
+        articleRepository.findByFilter(filter).forEach(articles::add);
+        for (Article article : articles) {
+            articlesDto.add(articleConverter.toDto(article));
+        }
+        return articlesDto;
     }
 }

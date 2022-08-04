@@ -7,6 +7,7 @@ import com.trabajofinalinfo.apinoticias.model.Author;
 import com.trabajofinalinfo.apinoticias.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -59,5 +60,25 @@ public class AuthorService {
 
     public void deleteAuthor(Long authorId) {
         authorRepository.deleteById(authorId);
+    }
+
+    public List<AuthorDto> findByFullname(String fullname) {
+        List<Author> authors = new ArrayList<>();
+        List<AuthorDto> authorsDto = new ArrayList<>();
+        authorRepository.findByFullnameContaining(fullname).forEach(authors::add);
+        for (Author author : authors) {
+            authorsDto.add(authorConverter.toDto(author));
+        }
+        return authorsDto;
+    }
+
+    public List<AuthorDto> findByCreatedAfterDate(LocalDate date) {
+        List<Author> authors = new ArrayList<>();
+        List<AuthorDto> authorsDto = new ArrayList<>();
+        authorRepository.findByCreatedAtAfter(date).forEach(authors::add);
+        for (Author author : authors) {
+            authorsDto.add(authorConverter.toDto(author));
+        }
+        return authorsDto;
     }
 }
