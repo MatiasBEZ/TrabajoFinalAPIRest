@@ -9,8 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Optional;
-
 
 @Service
 public class SourceService {
@@ -24,13 +24,17 @@ public class SourceService {
         this.sourceRepository = sourceRepository;
     }
 
-    public Boolean createSource(SourceDto sourceDto) {
+    public String createSource(SourceDto sourceDto) {
+        LocalDate today = LocalDate.now();
         if (sourceDto.getCreatedAt() == null) {
             throw new RuntimeException("You can't give a null creation date!");
+        } else if (sourceDto.getCreatedAt().isBefore(today) ||
+                sourceDto.getCreatedAt().isAfter(today)) {
+            throw new RuntimeException("Invalid creation date!");
         }
         Source source = sourceDtoToEntityConverter.toEntity(sourceDto);
         sourceRepository.save(source);
-        return true;
+        return "Source created successfully!";
     }
 
     public Page<SourceDto> findAll(Pageable pageable) {

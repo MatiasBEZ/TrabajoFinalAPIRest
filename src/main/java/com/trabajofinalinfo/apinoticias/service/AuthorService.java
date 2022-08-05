@@ -25,13 +25,17 @@ public class AuthorService {
         this.authorRepository = authorRepository;
     }
 
-    public Boolean createAuthor(AuthorDto authorDto) {
+    public String createAuthor(AuthorDto authorDto) {
+        LocalDate today = LocalDate.now();
         if (authorDto.getCreatedAt() == null) {
             throw new RuntimeException("You can't give a null creation date!");
+        } else if (authorDto.getCreatedAt().isBefore(today) ||
+                authorDto.getCreatedAt().isAfter(today)) {
+            throw new RuntimeException("Invalid creation date!");
         }
         Author author = authorDtoToEntityConverter.toEntity(authorDto);
         authorRepository.save(author);
-        return true;
+        return "Author created successfully!";
     }
 
     public Page<AuthorDto> findAll(Pageable pageable) {

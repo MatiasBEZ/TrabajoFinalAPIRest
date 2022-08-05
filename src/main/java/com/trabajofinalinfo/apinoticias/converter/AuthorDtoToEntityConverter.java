@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AuthorDtoToEntityConverter {
-
     public Author toEntity(AuthorDto authorDto) {
         return new Author(
                 authorDto.getId(),

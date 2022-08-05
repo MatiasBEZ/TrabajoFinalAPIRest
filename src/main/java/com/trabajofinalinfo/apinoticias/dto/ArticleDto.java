@@ -2,6 +2,7 @@ package com.trabajofinalinfo.apinoticias.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -11,13 +12,14 @@ public class ArticleDto {
     private String title;
     @NotBlank
     private String description;
+    @Pattern(regexp = "((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)", message = "Invalid URL")
     @NotBlank
     private String url;
+    @Pattern(regexp = "(http(s?):)([/|.|\\w|\\s|-|:|(|)|=|-])*\\.(?:jpg|gif|png|jpeg)", message = "Invalid URL")
     @NotBlank
     private String urlToImage;
     @NotNull
     private Boolean published;
-    @NotNull
     private LocalDate publishedAt;
     @NotBlank
     private String content;

@@ -1,14 +1,8 @@
 package com.trabajofinalinfo.apinoticias.dto;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.joining;
 
 public class AuthorDto {
     private Long id;

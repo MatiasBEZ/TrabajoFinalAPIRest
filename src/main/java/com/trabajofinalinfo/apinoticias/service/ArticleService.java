@@ -9,6 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
 @Service
 public class ArticleService {
 
@@ -22,10 +25,21 @@ public class ArticleService {
         this.articleRepository = articleRepository;
     }
 
-    public ArticleDto createArticle(ArticleDto articleDto) {
+    public String createArticle(ArticleDto articleDto) {
+        LocalDate today = LocalDate.now();
+        if (articleDto.getPublished()) {
+            if (articleDto.getPublishedAt() == null) {
+                throw new RuntimeException("You need to enter a publication date!");
+            }else {
+                if (articleDto.getPublishedAt().isBefore(today) ||
+                        articleDto.getPublishedAt().isAfter(today)) {
+                    throw new RuntimeException("Invalid publication date!");
+                }
+            }
+        } else { articleDto.setPublishedAt(null);}
         Article article = articleDtoToEntityConverter.toEntity(articleDto);
         articleRepository.save(article);
-        return articleDto;
+        return "Article created successfully!";
     }
 
     public Page<ArticleDto> findAll(Pageable pageable) {
@@ -35,17 +49,33 @@ public class ArticleService {
     }
 
     public ArticleDto updateArticle(Long articleId, ArticleDto articleDto) {
-        /**return sourceRepository.findById(sourceId).map(source ->
-         {source.setName(sourceDto.getName());
-         source.setCode(sourceDto.getCode());
-         source.setCreatedAt(sourceDto.getCreatedAt());
-         return sourceRepository.save(source);
-         });**/
-        articleRepository.findById(articleId).orElseThrow(RuntimeException::new);
-        Article article = articleDtoToEntityConverter.toEntity(articleDto);
-        article.setId(articleId);
-        articleRepository.save(article);
-        return articleDto;
+        Article article = articleRepository.findById(articleId).orElseThrow(RuntimeException::new);
+        LocalDate today = LocalDate.now();
+        if (articleDto.getPublished()) {
+            if (article.getPublishedAt() == null) {
+                if (articleDto.getPublishedAt() == null) {
+                    throw new RuntimeException("You need to enter a publication date!");
+                } else {
+                    if (articleDto.getPublishedAt().isBefore(today) ||
+                            articleDto.getPublishedAt().isAfter(today)) {
+                        throw new RuntimeException("Invalid publication date!");
+                    }
+                }
+            } else {
+                if (articleDto.getPublishedAt() == null) {
+                    throw new RuntimeException("You need to enter a publication date!");
+                }
+                else if (!articleDto.getPublishedAt().equals(article.getPublishedAt())) {
+                    throw new RuntimeException("You can't change the publication date!");
+                }
+            }
+        } else { articleDto.setPublishedAt(null);}
+        Article articleSave = articleDtoToEntityConverter.toEntity(articleDto);
+        articleSave.setId(articleId);
+        articleRepository.save(articleSave);
+        Optional<Article> articleEntity = articleRepository.findById(articleId);
+        ArticleDto articleResponse = articleConverter.toDto(articleEntity.get());
+        return articleResponse;
     }
 
     public void deleteArticle(Long articleId) {

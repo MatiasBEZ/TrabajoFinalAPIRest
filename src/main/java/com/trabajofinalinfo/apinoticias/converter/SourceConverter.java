@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SourceConverter {
-
     public SourceDto toDto(Source source) {
         return new SourceDto(
                 source.getId(),

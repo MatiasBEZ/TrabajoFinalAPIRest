@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AuthorConverter {
-
     public AuthorDto toDto(Author author) {
         return new AuthorDto(
                 author.getId(),
