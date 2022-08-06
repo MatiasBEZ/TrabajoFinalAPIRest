@@ -42,12 +42,6 @@ public class AuthorService {
         return "Author created successfully!";
     }
 
-    public Page<AuthorDto> findAll(Pageable pageable) {
-        Page<AuthorDto> authorsDto = authorRepository.findAll(pageable)
-                .map(authorConverter::toDto);
-        return authorsDto;
-    }
-
     public AuthorDto updateAuthor(Long authorId, AuthorDto authorDto) {
         // check if id exist and save
         authorRepository.findById(authorId).map(author -> {
@@ -72,6 +66,12 @@ public class AuthorService {
         }
     }
 
+    public Page<AuthorDto> findAll(Pageable pageable) {
+        Page<AuthorDto> authorsDto = authorRepository.findAll(pageable)
+                .map(authorConverter::toDto);
+        return authorsDto;
+    }
+
     public Page<AuthorDto> findByFullname(String fullname, Pageable pageable) {
         Page<AuthorDto> authorsDto = authorRepository.findByFullnameContaining(fullname, pageable)
                 .map(authorConverter::toDto);
@@ -80,6 +80,12 @@ public class AuthorService {
 
     public Page<AuthorDto> findByCreatedAfterDate(LocalDate date, Pageable pageable) {
         Page<AuthorDto> authorsDto = authorRepository.findByCreatedAtAfter(date, pageable)
+                .map(authorConverter::toDto);
+        return authorsDto;
+    }
+
+    public Page<AuthorDto> findByFullnameAndDateAfter(String fullname, LocalDate date, Pageable pageable) {
+        Page<AuthorDto> authorsDto = authorRepository.findByFullnameAndDateAfter(fullname, date, pageable)
                 .map(authorConverter::toDto);
         return authorsDto;
     }

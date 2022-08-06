@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/v1/source")
+@RequestMapping("/api/v1/sources")
 public class SourceController {
 
     private final SourceService sourceService;
@@ -26,12 +26,6 @@ public class SourceController {
         return new ResponseEntity<>(sourceService.createSource(sourceDto), HttpStatus.CREATED);
     }
 
-    @GetMapping
-    @RequestMapping("/all")
-    public ResponseEntity<?> findAllSources(Pageable pageable) {
-        return new ResponseEntity<>(sourceService.findAll(pageable), HttpStatus.OK);
-    }
-
     @PutMapping
     @RequestMapping("/{sourceId}")
     public ResponseEntity<?> updateSource(@PathVariable Long sourceId, @RequestBody @Valid SourceDto sourceDto) {
@@ -44,8 +38,13 @@ public class SourceController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping(value = "/search/name")
-    public ResponseEntity<?> findByName(@RequestParam String name, Pageable pageable) {
-        return new ResponseEntity<>(sourceService.findByName(name, pageable), HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<?> findSources(@RequestParam(required = false) String name, Pageable pageable) {
+        if (name != null) {
+            return new ResponseEntity<>(sourceService.findByName(name, pageable), HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(sourceService.findAll(pageable), HttpStatus.OK);
+        }
     }
 }

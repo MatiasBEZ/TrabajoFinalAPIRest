@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 
 @Validated
 @RestController
-@RequestMapping("/api/v1/article")
+@RequestMapping("/api/v1/articles")
 public class ArticleController {
 
     private final ArticleService articleService;
@@ -30,12 +30,6 @@ public class ArticleController {
         return new ResponseEntity<>(articleService.createArticle(articleDto), HttpStatus.CREATED);
     }
 
-    @GetMapping
-    @RequestMapping("/all")
-    public ResponseEntity<?> findAllArticles(Pageable pageable) {
-        return new ResponseEntity<>(articleService.findAll(pageable), HttpStatus.OK);
-    }
-
     @PutMapping
     @RequestMapping("/{articleId}")
     public ResponseEntity<?> updateArticle(@PathVariable Long articleId, @RequestBody @Valid ArticleDto articleDto) {
@@ -48,8 +42,8 @@ public class ArticleController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping(value= "/search")
-    public ResponseEntity<?> findByFilter(@Valid @Size(min=3) @RequestParam(required = false)
+    @GetMapping
+    public ResponseEntity<?> findArticles(@Valid @Size(min=3) @RequestParam(required = false)
                                               String filter, Pageable pageable) {
         if (filter != null) {
             return new ResponseEntity<>(articleService.findByFilter(filter, pageable), HttpStatus.OK);

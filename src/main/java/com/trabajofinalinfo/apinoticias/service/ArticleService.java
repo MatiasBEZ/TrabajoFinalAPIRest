@@ -51,12 +51,6 @@ public class ArticleService {
         return "Article created successfully!";
     }
 
-    public Page<ArticleDto> findAll(Pageable pageable) {
-        Page<ArticleDto> articlesDto = articleRepository.findAll(pageable)
-                .map(articleConverter::toDto);
-        return articlesDto;
-    }
-
     public ArticleDto updateArticle(Long articleId, ArticleDto articleDto) {
         // Check if article id exist
         Article article = articleRepository.findById(articleId).orElseThrow(()
@@ -102,6 +96,12 @@ public class ArticleService {
         } catch(Exception e) {
             throw new IdValueNotFoundException("Article with id:" + articleId + " doesn't exist!");
         }
+    }
+
+    public Page<ArticleDto> findAll(Pageable pageable) {
+        Page<ArticleDto> articlesDto = articleRepository.findAll(pageable)
+                .map(articleConverter::toDto);
+        return articlesDto;
     }
 
     public Page<ArticleDto> findByFilter(String filter, Pageable pageable) {

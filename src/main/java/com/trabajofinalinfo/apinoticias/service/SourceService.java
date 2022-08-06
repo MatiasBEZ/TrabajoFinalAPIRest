@@ -41,12 +41,6 @@ public class SourceService {
         return "Source created successfully!";
     }
 
-    public Page<SourceDto> findAll(Pageable pageable) {
-        Page<SourceDto> sourcesDto = sourceRepository.findAll(pageable)
-                .map(sourceConverter::toDto);
-        return sourcesDto;
-    }
-
     public SourceDto updateSource(Long sourceId, SourceDto sourceDto) {
         // check if id exist and save
         sourceRepository.findById(sourceId).map(source -> {
@@ -68,6 +62,12 @@ public class SourceService {
         catch(Exception e) {
             throw new IdValueNotFoundException("Source with id:" + sourceId + " doesn't exist!");
         }
+    }
+
+    public Page<SourceDto> findAll(Pageable pageable) {
+        Page<SourceDto> sourcesDto = sourceRepository.findAll(pageable)
+                .map(sourceConverter::toDto);
+        return sourcesDto;
     }
 
     public Page<SourceDto> findByName(String name, Pageable pageable) {

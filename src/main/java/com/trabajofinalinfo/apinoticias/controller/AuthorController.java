@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 
 @RestController
-@RequestMapping("/api/v1/author")
+@RequestMapping("/api/v1/authors")
 public class AuthorController {
 
     private final AuthorService authorService;
@@ -28,12 +28,6 @@ public class AuthorController {
         return new ResponseEntity<>(authorService.createAuthor(authorDto), HttpStatus.CREATED);
     }
 
-    @GetMapping
-    @RequestMapping("/all")
-    public ResponseEntity<?> findAllAuthors(Pageable pageable) {
-        return new ResponseEntity<>(authorService.findAll(pageable), HttpStatus.OK);
-    }
-
     @PutMapping
     @RequestMapping("/{authorId}")
     public ResponseEntity<?> updateAuthor(@PathVariable Long authorId, @RequestBody @Valid AuthorDto authorDto) {
@@ -46,15 +40,19 @@ public class AuthorController {
         return new ResponseEntity<>( HttpStatus.OK);
     }
 
-    @GetMapping(value= "/search/fullname")
-    public ResponseEntity<?> findByFullname(@RequestParam String fullname, Pageable pageable) {
-        return new ResponseEntity<>(authorService.findByFullname(fullname, pageable), HttpStatus.OK);
-    }
-
-    @GetMapping(value= "/search/date")
-    public ResponseEntity<?> findByCreatedAfterDate(@RequestParam
-                                                        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-                                                        LocalDate date, Pageable pageable) {
-        return new ResponseEntity<>(authorService.findByCreatedAfterDate(date, pageable), HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<?> findByFullname(@RequestParam(name = "fullname", required = false)
+          String fullname, @RequestParam(name = "date", required = false)
+          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, Pageable pageable) {
+        if (fullname != null && date == null) {
+            return new ResponseEntity<>(authorService.findByFullname(fullname, pageable), HttpStatus.OK);
+        } else if (date != null && fullname == null) {
+            return new ResponseEntity<>(authorService.findByCreatedAfterDate(date, pageable), HttpStatus.OK);
+        } else if (fullname != null && date != null){
+            return new ResponseEntity<>(authorService.findByFullnameAndDateAfter(fullname, date, pageable),
+                    HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(authorService.findAll(pageable),HttpStatus.OK);
+        }
     }
 }
