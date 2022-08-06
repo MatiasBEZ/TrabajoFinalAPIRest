@@ -3,6 +3,8 @@ package com.trabajofinalinfo.apinoticias.service;
 import com.trabajofinalinfo.apinoticias.converter.AuthorConverter;
 import com.trabajofinalinfo.apinoticias.converter.AuthorDtoToEntityConverter;
 import com.trabajofinalinfo.apinoticias.dto.AuthorDto;
+import com.trabajofinalinfo.apinoticias.exception.IdValueNotFoundException;
+import com.trabajofinalinfo.apinoticias.exception.InvalidDateException;
 import com.trabajofinalinfo.apinoticias.model.Author;
 import com.trabajofinalinfo.apinoticias.repository.AuthorRepository;
 import org.springframework.data.domain.Page;
@@ -26,13 +28,15 @@ public class AuthorService {
     }
 
     public String createAuthor(AuthorDto authorDto) {
+        // Creation date validator
         LocalDate today = LocalDate.now();
         if (authorDto.getCreatedAt() == null) {
-            throw new RuntimeException("You can't give a null creation date!");
+            throw new InvalidDateException("The field createdAt cannot be null!");
         } else if (authorDto.getCreatedAt().isBefore(today) ||
                 authorDto.getCreatedAt().isAfter(today)) {
-            throw new RuntimeException("Invalid creation date!");
+            throw new InvalidDateException("The creation date cannot be in the past or future!");
         }
+        // convert and save
         Author author = authorDtoToEntityConverter.toEntity(authorDto);
         authorRepository.save(author);
         return "Author created successfully!";
@@ -45,21 +49,27 @@ public class AuthorService {
     }
 
     public AuthorDto updateAuthor(Long authorId, AuthorDto authorDto) {
+        // check if id exist and save
         authorRepository.findById(authorId).map(author -> {
             author.setFirstname(authorDto.getFirstname());
             author.setFullname(authorDto.getFullname());
             author.setLastname(authorDto.getLastname());
             return authorRepository.save(author);
-        }).orElseThrow(() -> new RuntimeException("Id not found"));
-
+        }).orElseThrow(() -> new IdValueNotFoundException("Author with id:"
+                + authorId + " doesn't exist!"));
+        // show new Dto with saved data
         Optional<Author> authorEntity = authorRepository.findById(authorId);
         AuthorDto authorResponse = authorConverter.toDto(authorEntity.get());
-
         return authorResponse;
     }
 
     public void deleteAuthor(Long authorId) {
-        authorRepository.deleteById(authorId);
+        try {
+            authorRepository.deleteById(authorId);
+        }
+        catch(Exception e) {
+            throw new IdValueNotFoundException("Author with id:" + authorId + " doesn't exist!");
+        }
     }
 
     public Page<AuthorDto> findByFullname(String fullname, Pageable pageable) {
