@@ -56,10 +56,9 @@ public class SourceService {
     }
 
     public void deleteSource(Long sourceId) {
-        try {
+        if (sourceRepository.findById(sourceId).isPresent()){
             sourceRepository.deleteById(sourceId);
-        }
-        catch(Exception e) {
+        } else {
             throw new IdValueNotFoundException("Source with id:" + sourceId + " doesn't exist!");
         }
     }

@@ -58,10 +58,10 @@ public class AuthorService {
     }
 
     public void deleteAuthor(Long authorId) {
-        try {
+        if (authorRepository.findById(authorId).isPresent()) {
             authorRepository.deleteById(authorId);
         }
-        catch(Exception e) {
+        else {
             throw new IdValueNotFoundException("Author with id:" + authorId + " doesn't exist!");
         }
     }

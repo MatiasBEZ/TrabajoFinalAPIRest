@@ -11,17 +11,17 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private String url;
     private String urlToImage;
     private Boolean published;
     private LocalDate publishedAt;
+    @Column(columnDefinition = "TEXT")
     private String content;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="author_id")
     private Author author;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="source_id")
     private Source source;
