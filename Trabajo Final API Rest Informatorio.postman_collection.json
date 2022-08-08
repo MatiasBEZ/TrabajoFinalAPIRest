@@ -1,0 +1,497 @@
+{
+	"info": {
+		"_postman_id": "16447db2-dfd6-46d7-af2f-7ad6114b8db4",
+		"name": "Trabajo Final API Rest Informatorio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20488924"
+	},
+	"item": [
+		{
+			"name": "Source",
+			"item": [
+				{
+					"name": "Create Source",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Pagina 12\",\r\n    \"code\" : \"pagina-12\",\r\n    \"createdAt\" : \"2022-08-07\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/sources",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"sources"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Source",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"La Nación\",\r\n    \"code\" : \"la-nacion\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/sources/17",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"sources",
+								"17"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Source",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/sources/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"sources",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find all Sources",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/sources?page=0&size=5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"sources"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Source by Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/sources?name=clarin",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"sources"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "clarin"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Author",
+			"item": [
+				{
+					"name": "Create Author",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\" : \"Lucas\",\r\n    \"lastname\" : \"Sanchez\",\r\n    \"createdAt\" : \"2022-08-08\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/authors",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Author",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\" : \"Lucas\",\r\n    \"lastname\" : \"Sanchez\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/authors/31",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"authors",
+								"31"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Author",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/authors/32",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"authors",
+								"32"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find all Authors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/authors?page=0&size=5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"authors"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Author by Fullname",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/authors?fullname=nadia",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"authors"
+							],
+							"query": [
+								{
+									"key": "fullname",
+									"value": "nadia"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Author Created after a Date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/authors?date=2022-08-07",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"authors"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2022-08-07"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Author by Fullname and After a Date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/authors?fullname=luci&date=2022-08-06",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"authors"
+							],
+							"query": [
+								{
+									"key": "fullname",
+									"value": "luci"
+								},
+								{
+									"key": "date",
+									"value": "2022-08-06"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Article",
+			"item": [
+				{
+					"name": "Create Article",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\" : \"Drama en Brasil: asesinaron de un balazo de la cabeza a Leandro Lo, ocho veces campeón mundial de Jiu-Jitsu\",\r\n    \"description\" : \"Recibió el tiro mortal después de discutir con un policía en un boliche de San Pablo; el acusado tenía antecedentes por agresiones\",\r\n    \"url\" : \"https://www.lanacion.com.ar/deportes/drama-en-brasil-asesinaron-de-un-balazo-de-la-cabeza-a-leandro-lo-ocho-veces-campeon-mundial-de-jiu-nid08082022/\",\r\n    \"urlToImage\" : \"https://www.lanacion.com.ar/resizer/2lyH-C10fXptQCiDSLnQF8Bli9c=/1200x800/smart/filters:format(webp):quality(80)/cloudfront-us-east-1.images.arcpublishing.com/lanacionar/5IEXYVTHQFD7FLVJZGDCJAXWZE.jpg\",\r\n    \"published\" : true,\r\n    \"publishedAt\" : \"2022-08-08\",\r\n    \"content\" : \"Las imágenes son dramáticas. En el video que se viralizó en las últimas horas se ven corridas, personas gritando y otras que solo atinan a tomarse la cabeza. Todo es desesperación mientras Leandro Lo, ocho veces campeón mundial de jiu-jitsu y una de las grandes figuras de esa disciplina, yace en una camilla luego de recibir un balazo en la cabeza que lo hirió de muerte.Todo sucedió en un breve instante, dentro del Club Sirio, en la zona sur de San Pablo. El deportista de artes marciales había ido allí con unos amigos para disfrutar de una presentación de un grupo de música popular, poco antes de viajar a Estados Unidos para competir.Según testigos del hecho, el deportista recibió un balazo en la cabeza luego de discutir (por causas que aún se investigan) con un hombre que estaba en estado de ebriedad.Siempre según los testigos, Leandro lo inmovilizó con una llave habitual en el jiu-jitsu con el objetivo de tranquilizarlo. Sin embargo, apenas se liberó, el hombre sacó un arma y le pegó un tiro en la cabeza.El atleta pudo ser trasladado de urgencia en ambulancia a un hospital cercano, aunque las noticias no fueron buenas: en el primer informe médico le diagnosticaron muerte cerebral.“El ídolo de un deporte, Leandro Lo, nos deja materialmente. CBJJE rinde homenaje y reverencia a quienes ayudaron e inspiraron a tantas personas a usar el kimono en todo el mundo”, informó la Confederación Brasileña de Jiu-Jitsu Deportivo (CBJJE) en un comunicado. Y agregó: “Su nombre figura en la lista de benefactores de nuestra entidad. Condolencias a la familia y legión de estudiantes de Jiu Jitsu”.El acusado del asesinato es un policía. Si bien huyó, fue identificado por testigos y con la ayuda de las cámaras de seguridad. Se trataría del teniente Henrique Otavio Oliveira Velozo, oficial de la Policía Militar de San Pablo. Tiene 30 años y horas más tarde se presentó ante sus superiores. Fue apresado de inmediato y es el único sospechoso del crimen, que sucedió en la madrugada de este domingo.La detención fue realizada en cumplimento de una orden dictada por el Tribunal de Justicia de San Pablo y pidió que se lo arrestara provisionalmente por 30 días.Leandro Pereira do Nascimento Lo, mundialmente conocido como Leandro Lo, tenía 33 años y fue ocho veces campeón mundial de jiu-jitsu en cinco categorías diferentes. Además, ganó cinco títulos de Copa del Mundo de esa modalidad y ocho cinturones panamericanos.Su primera consagración mundial fue hace 10 años, en 2012, en la categoría de peso ligero, y en mayo de este año volvió a coronarse, pero en la categoría mediopesado.\",\r\n    \"author\": {\r\n        \"id\" : 31\r\n    },\r\n    \"source\": {\r\n        \"id\" : 17\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/articles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Articles",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\" : \"Europa se apaga para cuidar la energía: país por país, cómo es el plan de ahorro de luz y gas\",\r\n    \"description\" : \"Si bien la mayoría todavía no comunicó su estrategia oficial, ya se adelantaron algunas medidas que van en el sendero de regular las temperaturas de los aires acondicionados y calefacciones, el uso de espacios públicos y la iluminación urbana y de comercios durante la madrugada.\",\r\n    \"url\" : \"https://www.pagina12.com.ar/447782-europa-se-apaga-para-cuidar-la-energia-pais-por-pais-como-es\",\r\n    \"urlToImage\" : \"https://images.pagina12.com.ar/styles/focal_3_2_960x640/public/2022-08/600042-berlin-afp_0.jpg\",\r\n    \"published\" : true,\r\n    \"publishedAt\" : \"2022-08-08\",\r\n    \"content\" : \"Europa se apaga con planes de ahorro energético en todo el continente. Lo hace en un contexto de fuertes subas en el costo de la electricidad, que se vieron agravadas por la guerra entre Rusia y Ucrania. Desde el comienzo del conflicto, en febrero pasado, el precio se disparó en la región por las sanciones y contrasanciones entre la Unión Europea (UE) y el Kremlin, que redujeron la oferta de suministro de petróleo, pero sobre todo de gas ruso, que hasta antes de la guerra representaba más del 40 por ciento de las importaciones de ese combustible en el bloque.Por su lado, Gazprom, el gigante energético ruso, redujo en un 31 por ciento sus exportaciones de gas hacia los países no pertenecientes a la Comunidad de Estados Independientes (CEI), entre ellos los europeos. En su lugar, hubo un redireccionamiento del suministro hacia China e India. Por otro lado, en julio los flujos del gasoducto Nord Stream, que une Rusia y Alemania a través del mar Báltico, cayó a sólo un 20 por ciento.Esta caída del volumen de gas amenaza con elevar aún más los precios de la energía e incrementar la inflación, a pocos meses de que Europa empiece a demandar más suministro por el comienzo del frío. Para evitar una escasez, los países europeos comenzaron a planificar el racionamiento de los suministros de este combustible y lanzaron también diversas medidas para ahorrar energía.España, el último país en anunciar medidas de ahorro energético, lanzó el lunes pasado un plan para moderar el aire acondicionado y la calefacción en comercios, edificios culturales y estaciones de transporte.\\\"En estos inmuebles se deberá mantener la calefacción en invierno como máximo a 19 grados y en verano como mínimo a 27 grados centígrados\\\", anunció la titular para la Transición Ecológica, Teresa Ribera, tras un consejo de ministros.Las medidas, ya implementadas desde mayo para dependencias públicas, comprenden que los monumentos y las vidrieras de negocios apaguen sus luces a las 22, mientras que se exigirá el cierre automático de puertas en espacios climatizados y se fomentará el teletrabajo para \\\"ahorrar en desplazamientos y consumo térmico de los edificios\\\".Francia, por su lado, pretende reducir en los próximos dos años un 10 por ciento de la energía consumida respecto de 2019. Para ello, el presidente Emmanuel Macron instó a guiarse por la \\\"lógica de la sobriedad\\\": “Debemos prepararnos para un escenario en el que todos vivamos sin gas ruso\\\".Aunque la estrategia está aún en desarrollo, el Gobierno instó a familias y empresas a hacer \\\"pequeños gestos\\\" y desconectar aparatos energéticos mientras no se usen o a apagar la luz en piezas vacías. En esta dirección, la ministra de Transición Energética, Agnès Pannier-Runacher, adelantó que buscarán prohibir a las tiendas que mantengan sus puertas abiertas mientras usan el aire acondicionado o la calefacción. También se van a prohibir los anuncios luminosos y las vidrieras en todas las ciudades entre la 1 y las 6 hs.Alemania todavía no presentó un gran plan oficial para ahorrar energía, aunque a finales de julio se impulsaron una serie de recomendaciones. Entre ellas, los edificios públicos y de oficinas dejarán de acondicionar la temperatura en salas donde la gente no pasa mucho tiempo con regularidad, como grandes vestíbulos y pasillos. El Gobierno también le recomendó a las grandes industrias planes de ahorro para los próximos dos años. También se puso fin a la ley que obligaba a los inquilinos a mantener una temperatura mínima en los pisos.En este contexto, algunas ciudades ya adoptaron sus propias medidas, como reducir el alumbrado urbano o límites al termostato en edificios públicos. En Múnich, por ejemplo, se van a mantener cerrados los saunas y se va a cortar el agua caliente en edificios públicos.Italia, por su lado, tampoco anunció un plan oficial. El Gobierno adelantó que no va a promover medidas \\\"severas\\\". Sin embargo, la dirigencia de Roma aseguraba que estaba preparando un plan de emergencia. Entre otras medidas, también se buscaba limitar el uso de aires acondicionados entre 19 y 27 grados. También se planificaba la reducción del alumbrado urbano y adelantar la hora de cierre de comercios.En concreto, sí existe la propuesta de reducir un 7 por ciento el consumo de gas antes de marzo. Para eso, se va a impulsar la producción de las centrales de carbón. Sin embargo, frente a este panorama la Agencia Nacional para Nuevas Tecnologías, Energía y Desarrollo Económico Sostenible presentó un informe al Gobierno en julio que reclama mayor intervención para reducir la demanda. En todo caso, será un problema del Gobierno que surja de las elecciones en septiembre.En la misma línea se manifestó el gobierno polaco. Allí el primer ministro, Mateusz Morawiecki, anunció que el Gobierno destinaría \\\"miles de millones adicionales\\\" al programa de aire limpio que subvencionará las reformas para mejorar el aislamiento de las residencias privadas y la compra de sistemas de calefacción menos contaminantes.Se debe tener en cuenta la particular influencia del faltante de energía en el país por la guerra en Ucrania: Rusia suministraba el 40 por ciento del gas que consumía Polonia. Además, el problema se agrava por la escasez de carbón, que, según los analistas, este invierno podría estar entre una y dos millones de toneladas para satisfacer su demanda.El plan de Grecia consiste en apagar un 10 por ciento del alumbrado público durante la madrugada, limitar el aire acondicionado a 27 grados y apagar las computadoras de las oficinas cuando no se usen.Finalmente, el Gobierno de República Checa, que depende casi totalmente del gas ruso, ofreció asesoramiento gratuito para renovaciones que mejoren la eficiencia energética y consejos para el ahorro. Además, impulsará el consumo de carbón en caso de emergencia mientras pone su mirada en el suministro de gas natural que pueda llegar de Países Bajos.\",\r\n    \"author\": {\r\n        \"id\" : 34\r\n    },\r\n    \"source\": {\r\n        \"id\" : 20\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/articles/16",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"articles",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Article",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/articles/16",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"articles",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find all articles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/articles?page=0&size=5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"articles"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Article by Filter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/articles?filter=china&page=0&size=5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"articles"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "china"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
